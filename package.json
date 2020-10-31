@@ -6,7 +6,9 @@
   "scripts": {
     "start:build": "tsc -w",
     "start:serve": "nodemon build/index.js",
-    "start": "concurrently npm:start:*"
+    "start": "concurrently npm:start:*",
+    "prettier:check": "prettier --check src/*",
+    "prettier:write": "prettier --write src/*"
   },
   "dependencies": {
     "@types/body-parser": "^1.19.0",
@@ -19,7 +21,7 @@
     "nodemon": "^2.0.6"
   },
   "devDependencies": {
-    "prettier": "2.0.5",
+    "prettier": "^2.1.2",
     "typescript": "^3.9.7"
   }
 }
