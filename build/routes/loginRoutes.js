@@ -10,9 +10,13 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 var express_1 = require("express");
+var requireAuth_1 = __importDefault(require("../middleware/requireAuth"));
 var router = express_1.Router();
 exports.router = router;
 router.get('/', function (req, res) {
@@ -41,4 +45,7 @@ router.post('/login', function (req, res) {
     else {
         res.send('Incorrect email or password. Please try again.');
     }
+});
+router.get('/protected', requireAuth_1.default, function (req, res) {
+    res.send('Welcome to the protected route!');
 });

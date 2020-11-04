@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import requireAuth from '../middleware/requireAuth';
 
 interface ModifiedRequest extends Request {
   body: { [key: string]: string | undefined };
@@ -57,6 +58,10 @@ router.post('/login', (req: ModifiedRequest, res: Response) => {
   } else {
     res.send('Incorrect email or password. Please try again.');
   }
+});
+
+router.get('/protected', requireAuth, (req: Request, res: Response) => {
+  res.send('Welcome to the protected route!');
 });
 
 export { router };
