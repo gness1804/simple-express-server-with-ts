@@ -7,9 +7,18 @@ interface ModifiedRequest extends Request {
 const router = Router();
 
 router.get('/', (req: Request, res: Response) => {
-  res.send(`
+  if (req.session?.loggedIn)
+    return res.send(`
     <div>
-      <h1>My Site</h1>
+      <p>Congrats! You are logged in as ${req.session.email}.</p>
+      <a href="/logout">Log out</a>
+    </div>
+  `);
+
+  return res.send(`
+    <div>
+      <p>You are not logged in. Please log in now.</p>
+      <a href="/login">Log in</a>
     </div>
   `);
 });
@@ -30,6 +39,11 @@ router.get('/login', (req: Request, res: Response) => {
     `);
 });
 
+router.get('/logout', (req: Request, res: Response) => {
+  req.session = { ...req.session, loggedIn: false, email: undefined };
+  res.redirect('/');
+});
+
 router.post('/login', (req: ModifiedRequest, res: Response) => {
   const { email, password } = req.body;
 
@@ -37,9 +51,12 @@ router.post('/login', (req: ModifiedRequest, res: Response) => {
 
   if (!password) return res.send('Error: please enter a valid password');
 
-  res.send(
-    `Email: ${email.toUpperCase()}, Password: ${password.toUpperCase()}`,
-  );
+  if (email === 'mickey@mouse.com' && password === '1234') {
+    req.session = { loggedIn: true, email };
+    res.redirect('/');
+  } else {
+    res.send('Incorrect email or password. Please try again.');
+  }
 });
 
 export { router };
