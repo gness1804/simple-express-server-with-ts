@@ -8,9 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var Animal = /** @class */ (function () {
     function Animal(name) {
         this.name = name;
+        this.feet = 0;
         this.color = 'green';
         this.isVertebrate = true;
     }
@@ -25,14 +29,27 @@ var Animal = /** @class */ (function () {
         console.log("The " + this.name + " made a sound.");
         throw new Error('The vocalize method failed!');
     };
+    Animal.prototype.move = function (feet) {
+        this.feet += feet;
+    };
     __decorate([
         logError('The animal died!'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], Animal.prototype, "vocalize", null);
+    __decorate([
+        __param(0, paramDecorator),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Number]),
+        __metadata("design:returntype", void 0)
+    ], Animal.prototype, "move", null);
     return Animal;
 }());
+function paramDecorator(target, key, index) {
+    console.info('key', key);
+    console.info('index', index);
+}
 function logError(errorMessage) {
     return function (target, key, desc) {
         var method = desc.value;
@@ -48,5 +65,3 @@ function logError(errorMessage) {
         };
     };
 }
-var puck = new Animal('Puck');
-puck.vocalize();
