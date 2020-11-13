@@ -1,3 +1,4 @@
+@classDecorator
 class Animal {
   isVertebrate: boolean;
   feet: number = 0;
@@ -41,4 +42,8 @@ function logError(errorMessage: string) {
       }
     };
   };
+}
+
+function classDecorator(constr: Function) {
+  console.info('Constructor decorated', constr);
 }

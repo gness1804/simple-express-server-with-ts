@@ -44,6 +44,10 @@ var Animal = /** @class */ (function () {
         __metadata("design:paramtypes", [Number]),
         __metadata("design:returntype", void 0)
     ], Animal.prototype, "move", null);
+    Animal = __decorate([
+        classDecorator,
+        __metadata("design:paramtypes", [String])
+    ], Animal);
     return Animal;
 }());
 function paramDecorator(target, key, index) {
@@ -64,4 +68,7 @@ function logError(errorMessage) {
             }
         };
     };
+}
+function classDecorator(constr) {
+    console.info('Constructor decorated', constr);
 }
