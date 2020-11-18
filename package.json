@@ -8,7 +8,8 @@
     "start:serve": "nodemon build/",
     "start": "concurrently npm:start:*",
     "prettier:check": "prettier --check src/*",
-    "prettier:write": "prettier --write src/*"
+    "prettier:write": "prettier --write src/*",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@types/body-parser": "^1.19.0",
@@ -22,7 +23,10 @@
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint": "^7.13.0",
     "prettier": "^2.1.2",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.5"
   }
 }
