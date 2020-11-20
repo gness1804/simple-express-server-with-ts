@@ -25,19 +25,7 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 router.get('/login', (req: Request, res: Response) => {
-  res.send(`
-        <form method="POST">
-            <div>
-                <label>Email</label>
-                <input type="email" name="email">
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="password" name="password">
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-    `);
+  res.redirect('/auth/login');
 });
 
 router.get('/logout', (req: Request, res: Response) => {
