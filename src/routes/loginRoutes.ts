@@ -1,9 +1,6 @@
 import { Request, Response, Router } from 'express';
 import requireAuth from '../middleware/requireAuth';
-
-interface ModifiedRequest extends Request {
-  body: { [key: string]: string | undefined };
-}
+import { ModifiedRequest } from '../types/index';
 
 const router = Router();
 

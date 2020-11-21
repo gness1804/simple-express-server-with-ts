@@ -1,7 +1,5 @@
 import 'reflect-metadata';
-
-type decorator = (classTarget: any, classKey: string) => void;
-type decoratorFactory = (path: string) => decorator;
+import { decorator, decoratorFactory } from '../../types/index';
 
 function bindRoute(method: string): decoratorFactory {
   return function (path: string): decorator {
