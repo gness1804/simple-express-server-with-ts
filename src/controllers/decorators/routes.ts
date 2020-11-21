@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { decorator, decoratorFactory } from '../../types/index';
+import { Methods } from '../../types/';
 
 function bindRoute(method: string): decoratorFactory {
   return function (path: string): decorator {
@@ -14,8 +15,8 @@ function bindRoute(method: string): decoratorFactory {
   };
 }
 
-export const get = bindRoute('get');
-export const put = bindRoute('put');
-export const post = bindRoute('post');
-export const del = bindRoute('delete');
-export const patch = bindRoute('patch');
+export const get = bindRoute(Methods.get);
+export const put = bindRoute(Methods.put);
+export const post = bindRoute(Methods.post);
+export const del = bindRoute(Methods.del);
+export const patch = bindRoute(Methods.patch);
