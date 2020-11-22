@@ -13,6 +13,7 @@ export interface ModifiedRequest extends Request {
 export enum MetadataKeys {
   path = 'path',
   method = 'method',
+  middleware = 'middleware',
 }
 
 export enum Methods {

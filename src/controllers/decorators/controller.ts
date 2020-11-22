@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import { RequestHandler } from 'express';
 import { AppRouter } from '../../AppRouter';
 import { Methods, MetadataKeys } from '../../types/';
 
@@ -8,7 +9,7 @@ export function controller(routePrefix: string) {
     for (const classKey in target.prototype) {
       if (Object.prototype.hasOwnProperty.call(target.prototype, classKey)) {
         const routeHandler = target.prototype[classKey];
-        const path = Reflect.getMetadata(
+        const path: string = Reflect.getMetadata(
           MetadataKeys.path,
           target.prototype,
           classKey,
@@ -19,8 +20,17 @@ export function controller(routePrefix: string) {
           classKey,
         );
 
+        const middlewares: RequestHandler[] =
+          Reflect.getMetadata(MetadataKeys.middleware, target, classKey) || [];
+
         if (path) {
           router[method](`${routePrefix}${path}`, routeHandler);
+        }
+
+        if (middlewares.length > 0) {
+          for (const middleware of middlewares) {
+            router.use(middleware);
+          }
         }
       }
     }
