@@ -19,4 +19,22 @@ export class LoginController {
         </form>
     `);
   }
+
+  @get('/')
+  showDefaultView(req: Request, res: Response): void {
+    if (req.session?.loggedIn)
+      res.send(`
+      <div>
+        <p>Congrats! You are logged in as ${req.session.email}.</p>
+        <a href="/logout">Log out</a>
+      </div>
+    `);
+
+    res.send(`
+      <div>
+        <p>You are not logged in. Please log in now.</p>
+        <a href="/login">Log in</a>
+      </div>
+    `);
+  }
 }

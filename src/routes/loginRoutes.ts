@@ -4,23 +4,6 @@ import { ModifiedRequest } from '../types/index';
 
 const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
-  if (req.session?.loggedIn)
-    return res.send(`
-    <div>
-      <p>Congrats! You are logged in as ${req.session.email}.</p>
-      <a href="/logout">Log out</a>
-    </div>
-  `);
-
-  return res.send(`
-    <div>
-      <p>You are not logged in. Please log in now.</p>
-      <a href="/login">Log in</a>
-    </div>
-  `);
-});
-
 router.get('/login', (req: Request, res: Response) => {
   res.redirect('/auth/login');
 });
