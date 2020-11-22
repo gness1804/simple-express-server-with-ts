@@ -1,7 +1,22 @@
 import 'reflect-metadata';
-import { RequestHandler } from 'express';
+import { RequestHandler, Request, Response, NextFunction } from 'express';
 import { AppRouter } from '../../AppRouter';
 import { Methods, MetadataKeys } from '../../types/';
+
+function validateKeys(keys: string[]): RequestHandler {
+  return function (req: Request, res: Response, next: NextFunction): void {
+    if (!req.body) {
+      res.status(422).send('Invalid request. Request must have a valid body.');
+      return;
+    }
+    for (const key of keys) {
+      if (req.body[key]) continue;
+      res.status(422).send(`Error: key '${key}' not found!!`);
+      return;
+    }
+    next();
+  };
+}
 
 export function controller(routePrefix: string) {
   return function (target: Function): void {
@@ -19,16 +34,28 @@ export function controller(routePrefix: string) {
           target.prototype,
           classKey,
         );
-
         const middlewares: RequestHandler[] =
           Reflect.getMetadata(
             MetadataKeys.middleware,
             target.prototype,
             classKey,
           ) || [];
+        const requiredBodyProps: string[] =
+          Reflect.getMetadata(
+            MetadataKeys.validator,
+            target.prototype,
+            classKey,
+          ) || [];
+
+        const validator: RequestHandler = validateKeys(requiredBodyProps);
 
         if (path) {
-          router[method](`${routePrefix}${path}`, ...middlewares, routeHandler);
+          router[method](
+            `${routePrefix}${path}`,
+            ...middlewares,
+            validator,
+            routeHandler,
+          );
         }
       }
     }
