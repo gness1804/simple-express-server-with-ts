@@ -46,7 +46,6 @@ export function controller(routePrefix: string) {
             target.prototype,
             classKey,
           ) || [];
-
         const validator: RequestHandler = validateKeys(requiredBodyProps);
 
         if (path) {

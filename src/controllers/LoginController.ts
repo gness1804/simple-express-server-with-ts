@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { get, controller } from './decorators';
+import { get, post, controller, validateBody } from './decorators';
 
 @controller('/auth')
 export class LoginController {
@@ -22,13 +22,15 @@ export class LoginController {
 
   @get('/')
   showDefaultView(req: Request, res: Response): void {
-    if (req.session?.loggedIn)
+    if (req.session?.loggedIn) {
       res.send(`
       <div>
         <p>Congrats! You are logged in as ${req.session.email}.</p>
         <a href="/logout">Log out</a>
       </div>
     `);
+      return;
+    }
 
     res.send(`
       <div>
@@ -36,5 +38,18 @@ export class LoginController {
         <a href="/login">Log in</a>
       </div>
     `);
+  }
+
+  @post('/login')
+  @validateBody('email', 'password')
+  attemptLogin(req: Request, res: Response): void {
+    const { email, password } = req.body;
+
+    if (email === 'mickey@mouse.com' && password === '1234') {
+      req.session = { loggedIn: true, email };
+      res.redirect('/');
+    } else {
+      res.send('Incorrect email or password. Please try again.');
+    }
   }
 }
