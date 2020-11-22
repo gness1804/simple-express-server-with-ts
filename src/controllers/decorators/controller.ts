@@ -28,13 +28,7 @@ export function controller(routePrefix: string) {
           ) || [];
 
         if (path) {
-          router[method](`${routePrefix}${path}`, routeHandler);
-        }
-
-        if (middlewares.length > 0) {
-          for (const middleware of middlewares) {
-            router.use(middleware);
-          }
+          router[method](`${routePrefix}${path}`, ...middlewares, routeHandler);
         }
       }
     }
