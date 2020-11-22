@@ -1,6 +1,10 @@
 import 'reflect-metadata';
-import { decorator, decoratorFactory } from '../../types/index';
-import { Methods } from '../../types/';
+import {
+  Methods,
+  MetadataKeys,
+  decorator,
+  decoratorFactory,
+} from '../../types/';
 
 function bindRoute(method: string): decoratorFactory {
   return function (path: string): decorator {
@@ -9,8 +13,13 @@ function bindRoute(method: string): decoratorFactory {
       classKey: string,
       // desc: PropertyDescriptor,
     ): void {
-      Reflect.defineMetadata('path', path, classTarget, classKey);
-      Reflect.defineMetadata('method', method, classTarget, classKey);
+      Reflect.defineMetadata(MetadataKeys.path, path, classTarget, classKey);
+      Reflect.defineMetadata(
+        MetadataKeys.method,
+        method,
+        classTarget,
+        classKey,
+      );
     };
   };
 }

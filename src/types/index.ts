@@ -9,6 +9,12 @@ export interface ModifiedRequest extends Request {
   body: { [key: string]: string | undefined };
 }
 
+// enums
+export enum MetadataKeys {
+  path = 'path',
+  method = 'method',
+}
+
 export enum Methods {
   get = 'get',
   post = 'post',
