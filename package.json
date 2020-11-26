@@ -9,7 +9,8 @@
     "start": "concurrently npm:start:*",
     "prettier:check": "prettier --check src/*",
     "prettier:write": "prettier --write src/*",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:types": "tsc --noEmit src/**/*.ts",
   },
   "dependencies": {
     "@types/body-parser": "^1.19.0",
