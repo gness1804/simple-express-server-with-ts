@@ -11,10 +11,12 @@
     "prettier:write": "prettier --write src/*",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:types": "tsc --noEmit src/**/*.ts",
-    "check:master": "node ../../../githooks/build/noMasterBranch.js"
+    "check:master": "node ../../../githooks/dist/noMasterBranch.js",
+    "no-console": "bash ../../../githooks/dist/noConsole.sh"
   },
   "pre-commit": [
     "check:master",
+    "no-console",
     "prettier:check",
     "lint"
   ],
