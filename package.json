@@ -9,8 +9,15 @@
     "start": "concurrently npm:start:*",
     "prettier:check": "prettier --check src/*",
     "prettier:write": "prettier --write src/*",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:types": "tsc --noEmit src/**/*.ts",
+    "no-console": "bash ../../../githooks/dist/noConsole.sh"
   },
+  "pre-commit": [
+    "no-console",
+    "prettier:check",
+    "lint"
+  ],
   "dependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/cookie-session": "^2.0.41",
@@ -20,6 +27,7 @@
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.6",
+    "pre-commit": "^1.2.2",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
