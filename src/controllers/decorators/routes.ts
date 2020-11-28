@@ -8,11 +8,7 @@ import {
 
 function bindRoute(method: string): decoratorFactory {
   return function (path: string): decorator {
-    return function (
-      classTarget: any,
-      classKey: string,
-      // desc: PropertyDescriptor,
-    ): void {
+    return function (classTarget: any, classKey: string): void {
       Reflect.defineMetadata(MetadataKeys.path, path, classTarget, classKey);
       Reflect.defineMetadata(
         MetadataKeys.method,
