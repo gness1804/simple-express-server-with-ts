@@ -6,7 +6,7 @@ export function validateBody(...keys: string[]) {
     classTarget: any,
     classKey: string,
     // desc: PropertyDescriptor,
-  ) {
+  ): void {
     Reflect.defineMetadata(MetadataKeys.validator, keys, classTarget, classKey);
   };
 }
