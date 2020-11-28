@@ -26,7 +26,7 @@ export class LoginController {
       res.send(`
       <div>
         <p>Congrats! You are logged in as ${req.session.email}.</p>
-        <a href="/logout">Log out</a>
+        <a href="/auth/logout">Log out</a>
       </div>
     `);
       return;
@@ -51,5 +51,11 @@ export class LoginController {
     } else {
       res.send('Incorrect email or password. Please try again.');
     }
+  }
+
+  @get('/logout')
+  getLogout(req: Request, res: Response): void {
+    req.session = { ...req.session, loggedIn: false, email: undefined };
+    res.redirect('/');
   }
 }
