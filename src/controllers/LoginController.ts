@@ -35,7 +35,7 @@ export class LoginController {
     res.send(`
       <div>
         <p>You are not logged in. Please log in now.</p>
-        <a href="/login">Log in</a>
+        <a href="/auth/login">Log in</a>
       </div>
     `);
   }
